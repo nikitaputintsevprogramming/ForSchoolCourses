@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    [SerializeField] private Transform player;
+
+    [SerializeField] private float speed;
+
     void Start()
     {
-        
+
     }
 
     void Update()
     {
-        print("Hello, World!");
+        player.position += new Vector3(0, 0, speed) * Time.deltaTime;
+        print(player.gameObject.name);
     }
 }
