@@ -5,7 +5,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private float _speed = 5f;
     [SerializeField] private float _rotationSpeed = 180f;
     [SerializeField] private float _jumpForce = 10f;
-    private bool isJumped;
+    [SerializeField] private bool _isJumped;
 
     private Rigidbody rb;
 
@@ -13,17 +13,17 @@ public class Movement : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-        isJumped = false;
+        _isJumped = false;
     }
 
     private void Update()
     {
-        isJumped = Input.GetKeyDown(KeyCode.Space);
+        _isJumped = Input.GetKeyDown(KeyCode.Space);
     }
 
     private void FixedUpdate()
     {
-        if (isJumped)
+        if (_isJumped)
         {
             rb.AddForce(transform.up * _jumpForce * Time.fixedDeltaTime, ForceMode.Impulse);
         }

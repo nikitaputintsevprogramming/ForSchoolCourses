@@ -2,20 +2,20 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 {
-    public Transform target;
-    public float smoothSpeed = 0.125f;
-    public Vector3 offset;
+    [SerializeField] public Transform _target;
+    [SerializeField] public float _smoothSpeed = 0.125f;
+    [SerializeField] private Vector3 _offset;
 
     private void Start()
     {
-        offset = new Vector3(0, 2, -3);
+        _offset = new Vector3(0, 2, -3);
     }
 
     private void LateUpdate()
     {
-        Vector3 desiredPosition = target.position + offset;
-        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed * Time.deltaTime);
+        Vector3 desiredPosition = _target.position + _offset;
+        Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, _smoothSpeed * Time.deltaTime);
         transform.position = smoothedPosition;
-        transform.LookAt(target);
+        transform.LookAt(_target);
     }
 }
