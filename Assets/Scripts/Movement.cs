@@ -1,49 +1,45 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    [SerializeField] private float _horizontal;
-    [SerializeField] private float _vertical;
+    [SerializeField] private float _speed = 5f;
+    [SerializeField] private float _rotationSpeed = 180f;
+    [SerializeField] private float _jumpForce = 10f;
+    private bool isJumped;
 
-    [SerializeField] private float _speed;
-    [SerializeField] private float _jumpForce;
-
-    [SerializeField] private bool _isJumpPressed;
-    [SerializeField] private Rigidbody _rb;
-    [SerializeField] private float _gravityScale;
+    private Rigidbody rb;
 
     private void Start()
     {
-        _rb = gameObject.GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true;
+        isJumped = false;
     }
 
     private void Update()
     {
-        _isJumpPressed = Input.GetButtonDown("Jump");
+        isJumped = Input.GetKeyDown(KeyCode.Space);
     }
 
     private void FixedUpdate()
     {
-        PlayerMovement();
-        if (_isJumpPressed)
+        if (isJumped)
         {
-            _rb.AddForce(transform.up * _jumpForce, ForceMode.Impulse);
+            rb.AddForce(transform.up * _jumpForce * Time.fixedDeltaTime, ForceMode.Impulse);
         }
-    }
 
-    private void PlayerMovement()
-    {
-        _horizontal = Input.GetAxis("Horizontal");
-        _vertical = Input.GetAxis("Vertical");
+        float horizontalInput = Input.GetAxis("Horizontal");
+        float verticalInput = Input.GetAxis("Vertical");
 
-        Vector3 playerPos;
-        playerPos.x = _horizontal * _speed * Time.deltaTime;
-        playerPos.y = 0f;
-        playerPos.z = _vertical * _speed * Time.deltaTime;
+        Vector3 moveDirection = new Vector3(horizontalInput, 0f, verticalInput).normalized;
 
-        gameObject.transform.Translate(0, 0, _vertical);
-        gameObject.transform.Rotate(0, _horizontal, 0);
+        if (moveDirection != Vector3.zero)
+        {
+            //для физического движения
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection, Vector3.up);
+            rb.MoveRotation(Quaternion.RotateTowards(transform.rotation, targetRotation, _rotationSpeed * Time.fixedDeltaTime));
+            if (targetRotation == transform.rotation)
+                rb.MovePosition(transform.position + moveDirection * _speed * Time.fixedDeltaTime);
+        }
     }
 }
