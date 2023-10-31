@@ -4,24 +4,23 @@ using UnityEngine;
 
 public class Leader : MonoBehaviour
 {
-    [SerializeField] private Transform[] _waypoints;
-    [SerializeField] private float _speed = 2f;
+    [SerializeField] private Transform[] _wayPoints;
+    [SerializeField] private float _speed;
 
-    private int _currentWaypoint = 0;
+    private int _currentWaypoints;
 
     private void Update()
     {
-        if (transform.position == _waypoints[_currentWaypoint].position)
+        if(transform.position == _wayPoints[_currentWaypoints].position)
         {
-            _currentWaypoint++;
+            _currentWaypoints++;
 
-            if (_currentWaypoint >= _waypoints.Length)
+            if(_currentWaypoints >= _wayPoints.Length)
             {
-                _currentWaypoint = 0;
+                _currentWaypoints = 0;
             }
         }
 
-        transform.position = Vector3.MoveTowards(transform.position, _waypoints[_currentWaypoint].position, _speed * Time.deltaTime);
+        transform.position = Vector3.MoveTowards(transform.position, _wayPoints[_currentWaypoints].position, _speed * Time.deltaTime);
     }
 }
-
