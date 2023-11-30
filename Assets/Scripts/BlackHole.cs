@@ -11,12 +11,13 @@ public class BlackHole : MonoBehaviour
     {
         foreach(Rigidbody rigidbody in _planets)
         {
-            Vector3 direction = transform.position - rigidbody.position;
+            Vector3 direction = transform.position - rigidbody.transform.position;
             float distance = direction.magnitude;
 
             if(distance > 0)
             {
                 Vector3 force = (direction / (distance * distance)) * _gravitationalForce;
+                Debug.Log(force);
                 rigidbody.AddForce(force);
             }
         }

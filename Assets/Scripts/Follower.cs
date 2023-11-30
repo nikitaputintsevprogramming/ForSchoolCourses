@@ -12,7 +12,7 @@ public abstract class Follower : MonoBehaviour
 
     protected abstract void Move();
 
-    protected virtual void Update()
+    private void Update()
     {
         Move();
     }

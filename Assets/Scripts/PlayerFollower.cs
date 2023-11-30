@@ -6,10 +6,6 @@ public class PlayerFollower : MonoBehaviour
 {
     [SerializeField] private Transform _player;
     [SerializeField] private float _speed;
-    private void Start()
-    {
-        
-    }
 
     private void Update()
     {

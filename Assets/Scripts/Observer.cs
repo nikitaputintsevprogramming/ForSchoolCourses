@@ -5,10 +5,6 @@ using UnityEngine;
 public class Observer : MonoBehaviour
 {
     [SerializeField] private Transform _follower;
-    private void Start()
-    {
-        
-    }
 
     private void Update()
     {

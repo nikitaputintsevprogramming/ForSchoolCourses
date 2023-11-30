@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class Spin : MonoBehaviour
 {
-    private void Start()
-    {
-
-    }
+    [SerializeField] private float _speed = 2f;
 
     private void Update()
     {
-        transform.RotateAround(transform.position, transform.up, 2 * Time.deltaTime);
+        transform.RotateAround(transform.position, transform.up, _speed * Time.deltaTime);
     }
 }

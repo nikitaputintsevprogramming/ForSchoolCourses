@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class PhysicMotion : MonoBehaviour
 {
-    private Rigidbody _rigidbody;
     [SerializeField] private float _gravitySpeed;
+
+    private Rigidbody _rigidbody;
 
     private void Start()
     {
